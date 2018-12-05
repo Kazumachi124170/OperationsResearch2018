@@ -1,5 +1,5 @@
 import random
-n = 1
+n = 1000
 temper = 1000
 cRate = 0.999
 path = []
@@ -25,34 +25,32 @@ for i, val in enumerate(text):
     else:
         F = F + int(table[path[i]][path[i+1]])
 ans = F
-while(1):
+while n > 0:
     Fn = 0
     # Randomly select 2 place and swap
     x, y = random.sample(path, 2)
     npath = path
     npath[x], npath[y] = npath[y], npath[x]
-
     # Calculate new solution
     for i, val in enumerate(text):
         if i == len(text)-1:
             Fn = Fn + int(table[path[i]][path[1]])
         else:
             Fn = Fn + int(table[path[i]][path[i+1]])
-
-    # Compare and decide if it is
+    # Compare and decide if continute
     if F>Fn:
         path = npath
         F = Fn
         temper = temper*cRate
-        ans = Fn
-        anspath = npath
+        if ans>Fn:
+            ans = Fn
+            anspath = npath
     else:
         ran = random.randint(1, 1000)
         if ran < temper:
             path = npath
             F = Fn
             temper = temper*cRate
-        else:
-            break
-print(anspath)
-print(ans)
+    n = n-1
+print('The approximate optimal path is:', npath)
+print('The approximate optimal solution is:', ans)
