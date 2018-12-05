@@ -1,4 +1,6 @@
 import random
+import time
+start_time = time.time()
 n = 1000
 temper = 1000
 cRate = 0.999
@@ -52,5 +54,6 @@ while n > 0:
             F = Fn
             temper = temper*cRate
     n = n-1
-print('The approximate optimal path is:', npath)
-print('The approximate optimal solution is:', ans)
+print('The approximate optimal path is: ', npath)
+print('The approximate optimal solution is: ', ans)
+print('Running time is: ', time.time()-start_time, '(sec)')
