@@ -54,6 +54,7 @@ while n > 0:
             F = Fn
             temper = temper*cRate
     n = n-1
-print('The approximate optimal path is: ', npath)
+anspath.append(anspath[0])
+print('The approximate optimal path is: ', anspath)
 print('The approximate optimal solution is: ', ans)
 print('Running time is: ', time.time()-start_time, '(sec)')
