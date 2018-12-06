@@ -27,6 +27,8 @@ for i, val in enumerate(text):
     else:
         F = F + int(table[path[i]][path[i+1]])
 ans = F
+
+# Trail-and-error
 while n > 0:
     Fn = 0
     # Randomly select 2 place and swap
