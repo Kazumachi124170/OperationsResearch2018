@@ -1,9 +1,11 @@
 import random
 import time
+import math
+
 start_time = time.time()
-n = 1000
-temper = 1000
-cRate = 0.999
+n = 100 # Maximum iteration time
+temper = 100 # Temperature
+cRate = 0.99 # Cooling rate
 path = []
 F = 0
 ans = 0
@@ -14,7 +16,6 @@ f = open('gr17_d.txt', 'r') #Open file
 text = f.readlines() #Read file
 f.close() # Close file
 table = [text[i].split() for i, val in enumerate(text)] # Create TSB table
-#print(table[1][3])
 
 # Create Initial solution
 for i, val in enumerate(text):
@@ -23,7 +24,7 @@ for i, val in enumerate(text):
 # Calculate Initial solution
 for i, val in enumerate(text):
     if i == len(text)-1:
-        F = F + int(table[path[i]][path[1]])
+        F = F + int(table[path[i]][path[0]])
     else:
         F = F + int(table[path[i]][path[i+1]])
 ans = F
@@ -38,25 +39,30 @@ while n > 0:
     # Calculate new solution
     for i, val in enumerate(text):
         if i == len(text)-1:
-            Fn = Fn + int(table[path[i]][path[1]])
+            Fn = Fn + int(table[path[i]][path[0]])
         else:
             Fn = Fn + int(table[path[i]][path[i+1]])
     # Compare and decide if continute
     if F>Fn:
+        # New path is shorter
         path = npath
         F = Fn
-        temper = temper*cRate
         if ans>Fn:
             ans = Fn
             anspath = npath
     else:
-        ran = random.randint(1, 1000)
-        if ran < temper:
+        # New path is longer
+        ran = random.random()
+        if ran <= math.exp(-(Fn-F)/temper):
             path = npath
             F = Fn
-            temper = temper*cRate
+        else:
+            continue
+    temper = temper*cRate
     n = n-1
+    print(n)
+    print(temper)
 anspath.append(anspath[0])
-print('The approximate optimal path is: ', anspath)
-print('The approximate optimal solution is: ', ans)
+print('The approximate optimal solution is: ', anspath)
+print('The fitness funcion value is: ', ans)
 print('Running time is: ', time.time()-start_time, '(sec)')
