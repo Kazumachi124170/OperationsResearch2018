@@ -60,8 +60,6 @@ while n > 0:
             continue
     temper = temper*cRate
     n = n-1
-    print(n)
-    print(temper)
 anspath.append(anspath[0])
 print('The approximate optimal solution is: ', anspath)
 print('The fitness funcion value is: ', ans)
